@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication5
 {
-    class MainController
+    public class MainController
     {
         TheatreController theatreController = new TheatreController();
         Dictionary<string, int> theatreAndCapacity = new Dictionary<string, int>();
@@ -21,65 +21,69 @@ namespace ConsoleApplication5
 
         public int bookTicket(string theatre, string movie, char seatType)
         {
+            if (theatre == "" || movie == "" || (seatType.ToString()).Length == 0)
+            {
+                return 1;
+            }
 
-                foreach (Theatre theatreObject in theatreController.theatreList)
+            foreach (Theatre theatreObject in theatreController.theatreList)
+            {
+                if (theatreObject.theatreName == theatre)
                 {
-                    if (theatreObject.theatreName == theatre)
+                    foreach (Show show in theatreObject.shows)
                     {
-                        foreach (Show show in theatreObject.shows)
+                        if (show.movie.movieName == movie)
                         {
-                            if (show.movie.movieName == movie)
+                            foreach (SeatType seatTypeObject in show.seatType)
                             {
-                                foreach (SeatType seatTypeObject in show.seatType)
+                                if (seatTypeObject.seatName == seatType)
                                 {
-                                    if (seatTypeObject.seatName == seatType)
+
+                                    if (theatreObject.theatreCapacity < theatreCapacity)
                                     {
-
-                                        if (theatreObject.theatreCapacity < theatreCapacity)
-                                        {
-                                            return 1;
-                                        }
-
-                                        if (theatreAndCapacity.ContainsKey(theatre))
-                                        {
-                                            theatreAndCapacity[theatreObject.theatreName] = theatreAndCapacity[theatre] + 1;
-                                        }
-                                        else
-                                        {
-                                            theatreAndCapacity.Add(theatreObject.theatreName, theatreCapacity);
-                                        }
-
-                                        if (showTimeAndCapacity.ContainsKey(show.showTime))
-                                        {
-                                            showTimeAndCapacity[show.showTime] = theatreAndCapacity;
-                                        }
-                                        else
-                                        {
-                                            showTimeAndCapacity.Add(show.showTime, theatreAndCapacity);
-                                        }
-
-                                        if (bookingDetails.ContainsKey(show.movie))
-                                        {
-                                            bookingDetails[show.movie] = showTimeAndCapacity;
-                                        }
-                                        else
-                                        {
-                                            bookingDetails.Add(show.movie, showTimeAndCapacity);
-                                        } 
-                                        totalRevenue = totalRevenue + seatTypeObject.seatPrice;
-                                        
-                                        Ticket ticket = new Ticket(ticketID, theatreObject.theatreName, show.showName, show.movie.movieName, seatTypeObject.seatPrice);
-                                        ticketCount++;
-                                        ticketID = "Ticket" + ticketCount;
-                                        theatreCapacity++;
-                                        ticketList.Add(ticket);
-
+                                        return 1;
                                     }
+
+                                    if (theatreAndCapacity.ContainsKey(theatre))
+                                    {
+                                        theatreAndCapacity[theatreObject.theatreName] = theatreAndCapacity[theatre] + 1;
+                                    }
+                                    else
+                                    {
+                                        theatreAndCapacity.Add(theatreObject.theatreName, theatreCapacity);
+                                    }
+
+                                    if (showTimeAndCapacity.ContainsKey(show.showTime))
+                                    {
+                                        showTimeAndCapacity[show.showTime] = theatreAndCapacity;
+                                    }
+                                    else
+                                    {
+                                        showTimeAndCapacity.Add(show.showTime, theatreAndCapacity);
+                                    }
+
+                                    if (bookingDetails.ContainsKey(show.movie))
+                                    {
+                                        bookingDetails[show.movie] = showTimeAndCapacity;
+                                    }
+                                    else
+                                    {
+                                        bookingDetails.Add(show.movie, showTimeAndCapacity);
+                                    }
+                                    totalRevenue = totalRevenue + seatTypeObject.seatPrice;
+
+                                    Ticket ticket = new Ticket(ticketID, theatreObject.theatreName, show.showName, show.movie.movieName, seatTypeObject.seatPrice);
+                                    ticketCount++;
+                                    ticketID = "Ticket" + ticketCount;
+                                    theatreCapacity++;
+                                    ticketList.Add(ticket);
+
                                 }
                             }
                         }
                     }
                 }
+            }
             return 0;
         }
 
