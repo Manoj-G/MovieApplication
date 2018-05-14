@@ -1,0 +1,7 @@
+C:\Users\manojkumar\Documents\Visual Studio 2012\Projects\ConsoleApplication5\MovieApplicationTest\obj\Debug\MovieApplicationTest.csprojResolveAssemblyReference.cache
+C:\Users\manojkumar\Documents\Visual Studio 2012\Projects\ConsoleApplication5\MovieApplicationTest\bin\Debug\MovieApplicationTest.dll
+C:\Users\manojkumar\Documents\Visual Studio 2012\Projects\ConsoleApplication5\MovieApplicationTest\bin\Debug\MovieApplicationTest.pdb
+C:\Users\manojkumar\Documents\Visual Studio 2012\Projects\ConsoleApplication5\MovieApplicationTest\bin\Debug\ConsoleApplication5.exe
+C:\Users\manojkumar\Documents\Visual Studio 2012\Projects\ConsoleApplication5\MovieApplicationTest\bin\Debug\ConsoleApplication5.pdb
+C:\Users\manojkumar\Documents\Visual Studio 2012\Projects\ConsoleApplication5\MovieApplicationTest\obj\Debug\MovieApplicationTest.dll
+C:\Users\manojkumar\Documents\Visual Studio 2012\Projects\ConsoleApplication5\MovieApplicationTest\obj\Debug\MovieApplicationTest.pdb
