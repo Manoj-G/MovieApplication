@@ -27,4 +27,3 @@ Each and every ticket the user booked is tracked by this system by creating sepa
 	The details for this class is assigned from TheatreController.cs
 10) Ticket.cs
 	Ticket Class generates a ticket for each user and tracks them. 
-10)   
