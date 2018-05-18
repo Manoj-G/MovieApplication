@@ -11,18 +11,21 @@ namespace ConsoleApplication5
     {
         TheatreController theatreController = new TheatreController();
         
-        /*  Dictionaries for maintaining the records of tickets booked */
+        /*  Dictionaries for maintaining the records of tickets Booked */
         Dictionary<string, int> theatreAndCapacity = new Dictionary<string, int>();
         Dictionary<string, Dictionary<string, int>> showTimeAndCapacity = new Dictionary<string, Dictionary<string, int>>();
         public Dictionary<Movie, Dictionary<string, Dictionary<string, int>>> bookingDetails = new Dictionary<Movie, Dictionary<string, Dictionary<string, int>>>();
-        
+
+        /* For revenue info gathering */
+        //Dictionary<string, double> showAndPrice = new Dictionary<string, double>();
+        public Dictionary<string, Dictionary<string, double>> theatreRevenue = new Dictionary<string, Dictionary<string, double>>();
+
         /* For checking theatreCapacity */
         public Dictionary<string, int> theatreCapacity = new Dictionary<string, int>();
  
         public ArrayList ticketList = new ArrayList();
         static int ticketCount;
         static string ticketID;
-        double totalRevenue = 0;
 
         public MainController()
         {
@@ -36,6 +39,7 @@ namespace ConsoleApplication5
 
         public int bookTicket(string theatre, string movie, char seatType)
         {
+
             if (theatre == "" || movie == "" || (seatType.ToString()).Length == 0)
             {
                 return 1;
@@ -60,6 +64,7 @@ namespace ConsoleApplication5
                                         }
 
                                         theatreCapacity[theatreObject.theatreName] = theatreCapacity[theatreObject.theatreName] + 1;
+
 
                                         if (theatreAndCapacity.ContainsKey(theatre))
                                         {
@@ -87,12 +92,29 @@ namespace ConsoleApplication5
                                         {
                                             bookingDetails.Add(show.movie, showTimeAndCapacity);
                                         } 
-                                        totalRevenue = totalRevenue + seatTypeObject.seatPrice;
+
+                                        /* Maintaining revenues of theatres */
+                                        if (theatreRevenue.ContainsKey(theatre))
+                                        {
+                                            if (theatreRevenue[theatre].ContainsKey(show.showName))
+                                            {
+                                                theatreRevenue[theatre][show.showName] = theatreRevenue[theatre][show.showName] + seatTypeObject.seatPrice;
+                                            }
+                                            else
+                                            {
+                                                theatreRevenue[theatre].Add(show.showName, seatTypeObject.seatPrice);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Dictionary<string, double> showAndPrice = new Dictionary<string,double>();
+                                            showAndPrice.Add(show.showName, seatTypeObject.seatPrice);
+                                            theatreRevenue.Add(theatre, showAndPrice);
+                                        }
                                         
-                                        Ticket ticket = new Ticket(ticketID, theatreObject.theatreName, show.showName, show.movie.movieName, seatTypeObject.seatPrice);
+                                        Ticket ticket = new Ticket() {movieName=show.movie.movieName, price=seatTypeObject.seatPrice, seatName = seatTypeObject.seatName, showName=show.showName, theatre = theatreObject.theatreName, ticket = ticketID };
                                         ticketCount++;
                                         ticketID = "Ticket" + ticketCount;
-                                        
                                         ticketList.Add(ticket);
 
                                     }

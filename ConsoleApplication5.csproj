@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenerateRevenue.cs" />
     <Compile Include="MainController.cs" />
     <Compile Include="Movie.cs" />
     <Compile Include="MovieController.cs" />

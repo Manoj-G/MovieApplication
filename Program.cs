@@ -13,7 +13,7 @@ namespace ConsoleApplication5
         {   
             MainController mainController = new MainController();
             MovieController movieController = new MovieController();
-           // Dictionary<Movie, string> bookingDetails = new Dictionary<Movie, string>();
+            GenerateRevenue generateRevenue = new GenerateRevenue();
 
             while (true)
             {
@@ -103,7 +103,7 @@ namespace ConsoleApplication5
                 }
                 else if (choice == "NO")
                 {
-                    Console.WriteLine("Synopsis\n");
+                    Console.WriteLine("\nSynopsis\n");
 
                     Dictionary<Movie, Dictionary<string, Dictionary<string, int>>> bookingDetails = mainController.bookingDetails;
 
@@ -120,7 +120,30 @@ namespace ConsoleApplication5
                         }
                         Console.WriteLine();
                     }
-                   
+
+                    Console.WriteLine("Do you want to print the revenue of System in a csv file \nYes\nNo\n");
+                    string revenueChoice = Console.ReadLine().ToUpper();
+
+                    if (revenueChoice == "YES")
+                    {
+                        Dictionary<string, Dictionary<string, double>> theatreRevenue = mainController.theatreRevenue;
+
+                        int generatedOrNot = generateRevenue.printCSVFile(theatreRevenue);
+
+                        if (generatedOrNot == 1)
+                        {
+                            Console.WriteLine("Revenue Generated!!!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Revenue Not Generated!!! Maybe Due to InValid File Path");
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("You're exiting the system!!!");
+                    }
 
                     break;
                 }
