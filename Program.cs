@@ -10,10 +10,10 @@ namespace ConsoleApplication5
     class Program
     {
         static void Main(string[] args)
-        {
+        {   
             MainController mainController = new MainController();
             MovieController movieController = new MovieController();
-            // Dictionary<Movie, string> bookingDetails = new Dictionary<Movie, string>();
+           // Dictionary<Movie, string> bookingDetails = new Dictionary<Movie, string>();
 
             while (true)
             {
@@ -90,8 +90,8 @@ namespace ConsoleApplication5
                     {
                         Console.WriteLine("Your Movie ticket has been Booked ");
                         ArrayList ticket = mainController.ticketList;
-                        Ticket registeredTicket = (Ticket)ticket[ticket.Count - 1];
-                        Console.WriteLine(registeredTicket.ticket + " " + registeredTicket.movieName + " " + registeredTicket.showName + " " + registeredTicket.theatre + " Price-->" + registeredTicket.price);
+                        Ticket registeredTicket = (Ticket)ticket[ticket.Count-1];
+                        Console.WriteLine(registeredTicket.ticket+" "+registeredTicket.movieName+" "+registeredTicket.showName+" "+registeredTicket.theatre+" Price-->"+registeredTicket.price);
                     }
                     else
                     {
@@ -109,18 +109,18 @@ namespace ConsoleApplication5
 
                     foreach (Movie movie in bookingDetails.Keys)
                     {
-                        Console.WriteLine("Movie ID:-> " + movie.movieID + "|| Movie Name:-> " + movie.movieName + "|| Movie Lang:-> " + movie.movieLanguage);
+                        Console.WriteLine("Movie ID:-> "+movie.movieID+"|| Movie Name:-> "+movie.movieName+"|| Movie Lang:-> "+movie.movieLanguage);
                         foreach (string showTime in bookingDetails[movie].Keys)
                         {
                             Console.WriteLine(showTime);
                             foreach (string theatreName in bookingDetails[movie][showTime].Keys)
                             {
-                                Console.WriteLine("Theatre Name:->" + theatreName + "|| Tickets Sold:-->" + bookingDetails[movie][showTime][theatreName]);
+                                Console.WriteLine("Theatre Name:->"+theatreName+"|| Tickets Sold:-->"+bookingDetails[movie][showTime][theatreName]);
                             }
                         }
                         Console.WriteLine();
                     }
-
+                   
 
                     break;
                 }

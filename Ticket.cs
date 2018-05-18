@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication5
 {
-    class Ticket
+    public class Ticket
     {
         public string ticket;
         public string theatre;

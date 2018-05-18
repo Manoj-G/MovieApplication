@@ -10,14 +10,29 @@ namespace ConsoleApplication5
     public class MainController
     {
         TheatreController theatreController = new TheatreController();
+        
+        /*  Dictionaries for maintaining the records of tickets booked */
         Dictionary<string, int> theatreAndCapacity = new Dictionary<string, int>();
         Dictionary<string, Dictionary<string, int>> showTimeAndCapacity = new Dictionary<string, Dictionary<string, int>>();
         public Dictionary<Movie, Dictionary<string, Dictionary<string, int>>> bookingDetails = new Dictionary<Movie, Dictionary<string, Dictionary<string, int>>>();
-        int theatreCapacity = 1;
+        
+        /* For checking theatreCapacity */
+        public Dictionary<string, int> theatreCapacity = new Dictionary<string, int>();
+ 
         public ArrayList ticketList = new ArrayList();
-        static int ticketCount = 1;
-        static string ticketID = "Ticket" + ticketCount;
+        static int ticketCount;
+        static string ticketID;
         double totalRevenue = 0;
+
+        public MainController()
+        {
+            ticketCount = 1;
+
+            theatreCapacity.Add(theatreController.theatre1.theatreName, 0);
+            theatreCapacity.Add(theatreController.theatre2.theatreName, 0);
+
+            ticketID = "Ticket" + ticketCount;
+        }
 
         public int bookTicket(string theatre, string movie, char seatType)
         {
@@ -26,64 +41,66 @@ namespace ConsoleApplication5
                 return 1;
             }
 
-            foreach (Theatre theatreObject in theatreController.theatreList)
-            {
-                if (theatreObject.theatreName == theatre)
+                foreach (Theatre theatreObject in theatreController.theatreList)
                 {
-                    foreach (Show show in theatreObject.shows)
+                    if (theatreObject.theatreName == theatre)
                     {
-                        if (show.movie.movieName == movie)
+                        foreach (Show show in theatreObject.shows)
                         {
-                            foreach (SeatType seatTypeObject in show.seatType)
+                            if (show.movie.movieName == movie)
                             {
-                                if (seatTypeObject.seatName == seatType)
+                                foreach (SeatType seatTypeObject in show.seatType)
                                 {
+                                    if (seatTypeObject.seatName == seatType)
+                                    {
 
-                                    if (theatreObject.theatreCapacity < theatreCapacity)
-                                    {
-                                        return 1;
-                                    }
+                                        if (theatreObject.theatreCapacity < theatreCapacity[theatreObject.theatreName])
+                                        {
+                                            return 1;
+                                        }
 
-                                    if (theatreAndCapacity.ContainsKey(theatre))
-                                    {
-                                        theatreAndCapacity[theatreObject.theatreName] = theatreAndCapacity[theatre] + 1;
-                                    }
-                                    else
-                                    {
-                                        theatreAndCapacity.Add(theatreObject.theatreName, theatreCapacity);
-                                    }
+                                        theatreCapacity[theatreObject.theatreName] = theatreCapacity[theatreObject.theatreName] + 1;
 
-                                    if (showTimeAndCapacity.ContainsKey(show.showTime))
-                                    {
-                                        showTimeAndCapacity[show.showTime] = theatreAndCapacity;
-                                    }
-                                    else
-                                    {
-                                        showTimeAndCapacity.Add(show.showTime, theatreAndCapacity);
-                                    }
+                                        if (theatreAndCapacity.ContainsKey(theatre))
+                                        {
+                                            theatreAndCapacity[theatreObject.theatreName] = theatreAndCapacity[theatre] + 1;
+                                        }
+                                        else
+                                        {
+                                            theatreAndCapacity.Add(theatreObject.theatreName, theatreCapacity[theatreObject.theatreName]);
+                                        }
 
-                                    if (bookingDetails.ContainsKey(show.movie))
-                                    {
-                                        bookingDetails[show.movie] = showTimeAndCapacity;
-                                    }
-                                    else
-                                    {
-                                        bookingDetails.Add(show.movie, showTimeAndCapacity);
-                                    }
-                                    totalRevenue = totalRevenue + seatTypeObject.seatPrice;
+                                        if (showTimeAndCapacity.ContainsKey(show.showTime))
+                                        {
+                                            showTimeAndCapacity[show.showTime] = theatreAndCapacity;
+                                        }
+                                        else
+                                        {
+                                            showTimeAndCapacity.Add(show.showTime, theatreAndCapacity);
+                                        }
 
-                                    Ticket ticket = new Ticket(ticketID, theatreObject.theatreName, show.showName, show.movie.movieName, seatTypeObject.seatPrice);
-                                    ticketCount++;
-                                    ticketID = "Ticket" + ticketCount;
-                                    theatreCapacity++;
-                                    ticketList.Add(ticket);
+                                        if (bookingDetails.ContainsKey(show.movie))
+                                        {
+                                            bookingDetails[show.movie] = showTimeAndCapacity;
+                                        }
+                                        else
+                                        {
+                                            bookingDetails.Add(show.movie, showTimeAndCapacity);
+                                        } 
+                                        totalRevenue = totalRevenue + seatTypeObject.seatPrice;
+                                        
+                                        Ticket ticket = new Ticket(ticketID, theatreObject.theatreName, show.showName, show.movie.movieName, seatTypeObject.seatPrice);
+                                        ticketCount++;
+                                        ticketID = "Ticket" + ticketCount;
+                                        
+                                        ticketList.Add(ticket);
 
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
             return 0;
         }
 

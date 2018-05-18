@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication5
 {
-    class Theatre
+    public class Theatre
     {
         public string theatreID = "";
         public string theatreName = "";

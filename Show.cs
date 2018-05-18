@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication5
 {
-    class Show
+    public class Show
     {
         public string showName = "";
         public string showTime = "";

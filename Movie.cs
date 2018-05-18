@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication5
 {
-    class Movie
+    public class Movie
     {
         public string movieID = "";
         public string movieName = "";
@@ -18,5 +18,14 @@ namespace ConsoleApplication5
             this.movieName = movieName;
             this.movieLanguage = movieLanguage;
         }
+
     }
+
+    //public class Movies
+    //{
+    //    public string movieID { get; set; }
+    //    public string movieName { get; set; }
+    //    public string movieLanguage { get; set; }
+
+    //}
 }
