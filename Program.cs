@@ -68,7 +68,7 @@ namespace ConsoleApplication5
                     int theatrePresent = 0;
                     foreach (Theatre theatre in theatreList)
                     {
-                        if (theatre.theatreName == theatreChoice)
+                        if (theatre.theatreName == theatreChoice)// What if theatre choice is null.
                         {
                             theatrePresent = 1;
                             break;
@@ -124,7 +124,7 @@ namespace ConsoleApplication5
                     Console.WriteLine("Do you want to print the revenue of System in a csv file \nYes\nNo\n");
                     string revenueChoice = Console.ReadLine().ToUpper();
 
-                    if (revenueChoice == "YES")
+                    if (revenueChoice == "YES")//What happens when users enters other than YES or NO
                     {
                         Dictionary<string, Dictionary<string, double>> theatreRevenue = mainController.theatreRevenue;
 
@@ -155,5 +155,6 @@ namespace ConsoleApplication5
             }
             Console.ReadKey();
         }
+        //All operaions can be grouped into simple methods. for better redability. an method could not be that long.
     }
 }
