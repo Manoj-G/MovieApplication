@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication5
 {
-    class MovieController
+    public class MovieController
     {
         ArrayList moviesList = new ArrayList();
 

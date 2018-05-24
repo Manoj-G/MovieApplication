@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication5
 {
-    class SeatType
+    public class SeatType
     {
         public char seatName;
         public int seatCount = 0;

@@ -10,10 +10,10 @@ namespace ConsoleApplication5
     class Program
     {
         static void Main(string[] args)
-        {
+        {   
             MainController mainController = new MainController();
             MovieController movieController = new MovieController();
-            // Dictionary<Movie, string> bookingDetails = new Dictionary<Movie, string>();
+            GenerateRevenue generateRevenue = new GenerateRevenue();
 
             while (true)
             {
@@ -68,7 +68,7 @@ namespace ConsoleApplication5
                     int theatrePresent = 0;
                     foreach (Theatre theatre in theatreList)
                     {
-                        if (theatre.theatreName == theatreChoice)
+                        if (theatre.theatreName == theatreChoice)// What if theatre choice is null.
                         {
                             theatrePresent = 1;
                             break;
@@ -90,8 +90,8 @@ namespace ConsoleApplication5
                     {
                         Console.WriteLine("Your Movie ticket has been Booked ");
                         ArrayList ticket = mainController.ticketList;
-                        Ticket registeredTicket = (Ticket)ticket[ticket.Count - 1];
-                        Console.WriteLine(registeredTicket.ticket + " " + registeredTicket.movieName + " " + registeredTicket.showName + " " + registeredTicket.theatre + " Price-->" + registeredTicket.price);
+                        Ticket registeredTicket = (Ticket)ticket[ticket.Count-1];
+                        Console.WriteLine(registeredTicket.ticket+" "+registeredTicket.movieName+" "+registeredTicket.showName+" "+registeredTicket.theatre+" Price-->"+registeredTicket.price);
                     }
                     else
                     {
@@ -103,24 +103,47 @@ namespace ConsoleApplication5
                 }
                 else if (choice == "NO")
                 {
-                    Console.WriteLine("Synopsis\n");
+                    Console.WriteLine("\nSynopsis\n");
 
                     Dictionary<Movie, Dictionary<string, Dictionary<string, int>>> bookingDetails = mainController.bookingDetails;
 
                     foreach (Movie movie in bookingDetails.Keys)
                     {
-                        Console.WriteLine("Movie ID:-> " + movie.movieID + "|| Movie Name:-> " + movie.movieName + "|| Movie Lang:-> " + movie.movieLanguage);
+                        Console.WriteLine("Movie ID:-> "+movie.movieID+"|| Movie Name:-> "+movie.movieName+"|| Movie Lang:-> "+movie.movieLanguage);
                         foreach (string showTime in bookingDetails[movie].Keys)
                         {
                             Console.WriteLine(showTime);
                             foreach (string theatreName in bookingDetails[movie][showTime].Keys)
                             {
-                                Console.WriteLine("Theatre Name:->" + theatreName + "|| Tickets Sold:-->" + bookingDetails[movie][showTime][theatreName]);
+                                Console.WriteLine("Theatre Name:->"+theatreName+"|| Tickets Sold:-->"+bookingDetails[movie][showTime][theatreName]);
                             }
                         }
                         Console.WriteLine();
                     }
 
+                    Console.WriteLine("Do you want to print the revenue of System in a csv file \nYes\nNo\n");
+                    string revenueChoice = Console.ReadLine().ToUpper();
+
+                    if (revenueChoice == "YES")//What happens when users enters other than YES or NO
+                    {
+                        Dictionary<string, Dictionary<string, double>> theatreRevenue = mainController.theatreRevenue;
+
+                        int generatedOrNot = generateRevenue.printCSVFile(theatreRevenue);
+
+                        if (generatedOrNot == 1)
+                        {
+                            Console.WriteLine("Revenue Generated!!!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Revenue Not Generated!!! Maybe Due to InValid File Path");
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("You're exiting the system!!!");
+                    }
 
                     break;
                 }
@@ -132,5 +155,6 @@ namespace ConsoleApplication5
             }
             Console.ReadKey();
         }
+        //All operaions can be grouped into simple methods. for better redability. an method could not be that long.
     }
 }

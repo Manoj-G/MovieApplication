@@ -6,21 +6,18 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication5
 {
-    class Ticket
+    public class Ticket
     {
-        public string ticket;
-        public string theatre;
-        public string showName;
-        public string movieName;
-        public double price;
+        public string ticket { get; set; }
 
-        public Ticket(string ticket, string theatre, string showName, string movieName, double price)
-        {
-            this.ticket = ticket;
-            this.theatre = theatre;
-            this.showName = showName;
-            this.movieName = movieName;
-            this.price = price;
-        }
+        public string theatre { get; set; }
+
+        public string showName { get; set; }
+
+        public string movieName { get; set; }
+
+        public double price { get; set; }
+
+        public char seatName { get; set; }
     }
 }
